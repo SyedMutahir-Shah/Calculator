@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 25px;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            background: linear-gradient(45deg, #1c1c1c, #3a3a3a, #000000);
+            background-color: black;
+        }
+
+        /* Center the heading outside the calculator container */
+        .h1 {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: white;
+        }
+
+        .h1 h1 {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 45px;
+            color: #f0f8ff;
+            text-shadow: 0 0 15px rgba(173, 216, 230, 0.8), 0 0 30px rgba(173, 216, 230, 0.8);
+            animation: float 4s ease-in-out infinite, glow 1.5s alternate infinite;
+        }
+
+        /* Floating effect */
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        /* Glowing effect */
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 15px rgba(173, 216, 230, 0.8), 0 0 30px rgba(173, 216, 230, 0.8);
+            }
+
+            50% {
+                text-shadow: 0 0 25px rgba(173, 216, 230, 1), 0 0 40px rgba(173, 216, 230, 1);
+            }
+
+            100% {
+                text-shadow: 0 0 15px rgba(173, 216, 230, 0.8), 0 0 30px rgba(173, 216, 230, 0.8);
+            }
+        }
+
+        .calculator {
+            padding: 20px;
+            border-radius: 16px;
+            background: linear-gradient(145deg, #2a2a2a, #1c1c1c);
+            border: 1px solid #0d93e0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            height: 85%; /* Adjust height to fit buttons properly */
+            width: 360px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        input {
+            width: 100%;
+            height: 18%;
+            border: none;
+            text-align: right;
+            background: transparent;
+            padding: 25px;
+            font-size: 40px;
+            color: white;
+        }
+
+        input::placeholder {
+            color: gray;
+        }
+
+        button {
+            height: 70px;
+            width: 70px; /* Set fixed width for round shape */
+            border-radius: 50%;
+            color: white;
+            background: transparent;
+            border: none;
+            font-family: 'Roboto', sans-serif;
+            font-size: 28px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(138, 135, 135, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Button hover effect */
+        button:hover {
+            background-color: rgba(99, 80, 80, 0.1);
+            box-shadow: 0 6px 15px rgba(110, 95, 95, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .operator {
+            background-color: #2f2f2f;
+            color: greenyellow;
+        }
+
+        .equal {
+            background-color: orange;
+        }
+
+        .button-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        /* Add some space for the last button row */
+        .button-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .button-row button {
+            flex: 1;
+            margin: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="h1">
+        <h1>CALCULATOR</h1>
+    </div>
+
+    <div class="calculator">
+        <div>
+            <input type="text" placeholder="0" id="screen" disabled>
+        </div>
+        <div class="button-row">
+            <button class="operator" onclick="clearScreen()">AC</button>
+            <button class="operator" onclick="eraselast()">DEL</button>
+            <button class="operator" onclick="appendToScreen('%')">%</button>
+            <button class="operator" onclick="appendToScreen('/')">/</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToScreen('7')">7</button>
+            <button onclick="appendToScreen('8')">8</button>
+            <button onclick="appendToScreen('9')">9</button>
+            <button class="operator" onclick="appendToScreen('*')">*</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToScreen('4')">4</button>
+            <button onclick="appendToScreen('5')">5</button>
+            <button onclick="appendToScreen('6')">6</button>
+            <button class="operator" onclick="appendToScreen('-')">-</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToScreen('1')">1</button>
+            <button onclick="appendToScreen('2')">2</button>
+            <button onclick="appendToScreen('3')">3</button>
+            <button class="operator" onclick="appendToScreen('+')">+</button>
+        </div>
+        <div class="button-row">
+            <button onclick="appendToScreen('0')">0</button>
+            <button onclick="appendToScreen('00')">00</button>
+            <button class="operator" onclick="appendToScreen('.')">.</button>
+            <button class="equal" onclick="calculateresult()">=</button>
+        </div>
+    </div>
+
+    <script>
+        function appendToScreen(value) {
+            const screen = document.getElementById('screen');
+            if (screen.value === '0') {
+                screen.value = value;
+            } else {
+                screen.value += value;
+            }
+        }
+
+        function clearScreen() {
+            document.getElementById('screen').value = '0';
+        }
+
+        function eraselast() {
+            const screen = document.getElementById('screen');
+            screen.value = screen.value.slice(0, -1);
+            if (screen.value === '') {
+                screen.value = '0';
+            }
+        }
+
+        function calculateresult() {
+            const screen = document.getElementById('screen');
+            try {
+                screen.value = eval(screen.value);
+            } catch (e) {
+                screen.value = 'Error';
+            }
+        }
+    </script>
+</body>
+
+</html>
+
